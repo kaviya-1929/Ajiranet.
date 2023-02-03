@@ -1,0 +1,100 @@
+import java.io.Console;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Scanner;
+public class AjiraNet {
+
+	public static void main(String[] args) {
+		  Scanner s=new Scanner(System.in);
+		  HashMap<String,Integer> lis=new HashMap<>();
+		  ArrayList<String> lis2=new ArrayList<>();
+		  
+		  while(s.hasNext())
+		  {
+			 String str=s.nextLine();
+			 String arr[]=str.split(" ");
+			 if(arr.length<=2)
+			 {
+				 System.out.print("Error: Invalid command syntax");
+			 }
+			 switch(arr[1])
+			 {
+			    case "ADD":
+			    {
+			    	if(arr[2]!="COMPUTER" || arr[2]!="REPEATER")
+			    	{
+			    		System.out.print("Error: Invalid command syntax");
+			    	}
+			    	else
+			    	{
+			    		lis.put(arr[3],5);
+			    		System.out.print("Successfully added "+arr[3]);
+			    	}
+			    }
+			    case "SET_DEVICE_STRENGTH":
+			    {
+			    	try
+			    	{
+			    		int n=Integer.parseInt(arr[3]);
+			    		lis.put(arr[2], n);
+			    		System.out.println("Successfully connected");
+			    	}
+			    	catch(NumberFormatException e)
+			    	{
+			    		System.out.println("Error: Invalid command syntax");
+			    	}
+			    }
+			    
+			    case "CONNECT":
+			    {
+			    	if(arr.length<=3)
+			    	{
+			    		System.out.print("Error: Invalid command syntax");
+			    	}
+			    	else if(arr[3].equals(arr[2]))
+			    	{
+			    		System.out.print("Error: Cannot connect device itself");
+			    	}
+			    	else if(!lis.containsKey(arr[2]) || !lis.containsKey(arr[3]))
+			    	{
+			    		System.out.print("Error: Node not found");
+			    	}
+			    	else if(lis2.contains(arr[2].concat("->"+arr[3])))
+			    	{
+			    		System.out.print("Error: Devices are already connected");
+			    	}
+			    	else
+			    	{
+			    		lis2.add(arr[2].concat("->"+arr[3]));
+			    	}
+			    }
+			    case "INFO_ROUTE":
+			    {
+			    	if(arr.length<=3)
+			    	{
+			    		System.out.print("Error: Invalid command syntax.");
+			    	}
+			    	else if(arr[2].charAt(0)=='R' || arr[3].charAt(0)=='R')
+			    	{
+			    		System.out.print("Error: Route cannot be calculated with a repeater.");
+			    	}
+			    	else if(!lis.containsKey(arr[2]) || !lis.containsKey(arr[3]))
+			    	{
+			    		System.out.print("Error: Node not found.");
+			    	}
+			    	else if(arr[3].equals(arr[2]) || lis2.contains(arr[2]+"->"+arr[3]))
+			    	{
+			    		System.out.print(arr[2]+"->"+arr[3]);
+			    	}
+			    	else
+			    	{
+			    		for(int i=0;i<lis2.size();i++)
+			    		{
+			    			lis2.get(i).contains(arr[2]);
+			    		}
+			    	}
+			    }
+			 }
+		 }  
+	}
+}
