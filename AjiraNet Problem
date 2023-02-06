@@ -12,44 +12,54 @@ public class AjiraNet {
 		  while(s.hasNext())
 		  {
 			 String str=s.nextLine();
+			 
 			 String arr[]=str.split(" ");
+			 
 			 if(arr.length<=2)
 			 {
-				 System.out.print("Error: Invalid command syntax");
+				 System.out.println("Error: Invalid command syntax");
 			 }
 			 switch(arr[1])
 			 {
 			    case "ADD":
 			    {
-			    	if(arr[2]!="COMPUTER" || arr[2]!="REPEATER")
+			    	if(!arr[2].equals("COMPUTER") && !arr[2].equals("REPEATER"))
 			    	{
-			    		System.out.print("Error: Invalid command syntax");
+			    		System.out.println("Error: Invalid command syntax");
 			    	}
 			    	else
 			    	{
 			    		lis.put(arr[3],5);
-			    		System.out.print("Successfully added "+arr[3]);
+			    		System.out.println("Successfully added "+arr[3]);
 			    	}
+			    	break;
 			    }
 			    case "SET_DEVICE_STRENGTH":
 			    {
+			    	if(arr.length<=3)
+					 {
+						 System.out.println("Error: Invalid command syntax");
+						 break;
+					 }
 			    	try
 			    	{
 			    		int n=Integer.parseInt(arr[3]);
 			    		lis.put(arr[2], n);
-			    		System.out.println("Successfully connected");
+			    		System.out.println("Successfully strength changed");
 			    	}
 			    	catch(NumberFormatException e)
 			    	{
 			    		System.out.println("Error: Invalid command syntax");
 			    	}
+			    	break;
 			    }
 			    
 			    case "CONNECT":
 			    {
 			    	if(arr.length<=3)
 			    	{
-			    		System.out.print("Error: Invalid command syntax");
+			    		System.out.println("Error: Invalid command syntax");
+			    		break;
 			    	}
 			    	else if(arr[3].equals(arr[2]))
 			    	{
@@ -61,18 +71,19 @@ public class AjiraNet {
 			    	}
 			    	else if(lis2.contains(arr[2].concat("->"+arr[3])))
 			    	{
-			    		System.out.print("Error: Devices are already connected");
+			    		System.out.println("Error: Devices are already connected");
 			    	}
 			    	else
 			    	{
 			    		lis2.add(arr[2].concat("->"+arr[3]));
 			    	}
+			    	break;
 			    }
 			    case "INFO_ROUTE":
 			    {
 			    	if(arr.length<=3)
 			    	{
-			    		System.out.print("Error: Invalid command syntax.");
+			    		System.out.println("Error: Invalid command syntax.");
 			    	}
 			    	else if(arr[2].charAt(0)=='R' || arr[3].charAt(0)=='R')
 			    	{
@@ -80,11 +91,11 @@ public class AjiraNet {
 			    	}
 			    	else if(!lis.containsKey(arr[2]) || !lis.containsKey(arr[3]))
 			    	{
-			    		System.out.print("Error: Node not found.");
+			    		System.out.println("Error: Node not found.");
 			    	}
 			    	else if(arr[3].equals(arr[2]) || lis2.contains(arr[2]+"->"+arr[3]))
 			    	{
-			    		System.out.print(arr[2]+"->"+arr[3]);
+			    		System.out.println(arr[2]+"->"+arr[3]);
 			    	}
 			    	else
 			    	{
@@ -93,8 +104,12 @@ public class AjiraNet {
 			    			lis2.get(i).contains(arr[2]);
 			    		}
 			    	}
+			    	break;
 			    }
 			 }
-		 }  
+		  }
+		  
 	}
+	
+
 }
