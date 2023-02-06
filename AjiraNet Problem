@@ -76,6 +76,7 @@ public class AjiraNet {
 			    	else
 			    	{
 			    		lis2.add(arr[2].concat("->"+arr[3]));
+					System.out.print("Successfully connected");
 			    	}
 			    	break;
 			    }
